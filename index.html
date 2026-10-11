@@ -179,9 +179,30 @@ function face(b){
   var c=COVERS[hash(b.title+b.author)%COVERS.length];
   var isbn=String(b.isbn||'').replace(/[^0-9Xx]/g,'');
   var byIsbn=isbn?'https://covers.openlibrary.org/b/isbn/'+isbn+'-M.jpg?default=false':'';
-  var cid=parseInt(b.coverId,10)>0?parseInt(b.coverId,10):0;
+  var cid=parseInt(b.coverId,10)>0?parseInt(b.coverId,10):(AUTO[autoKey(b)]||0);
   var ol=cid?'<img class="ol" alt="" src="https://covers.openlibrary.org/b/id/'+cid+'-M.jpg" data-fallback="'+byIsbn+'">':(byIsbn?'<img class="ol" alt="" src="'+byIsbn+'">':'');
   return '<span class="face" style="background:'+c[0]+';color:'+c[1]+'"><span class="gen"><span class="frame"></span><span class="t">'+esc(b.title)+'</span><span class="rule"></span><span class="a">'+esc(b.author)+'</span></span>'+ol+badge+'</span>';
+}
+/* Books with no photo, cover ID or ISBN: the viewer's browser asks Open Library's search for a cover once per book and remembers the answer in this browser. */
+var AUTO={};
+function autoKey(b){return 'olc:'+String(b.title||'').toLowerCase()+'|'+String(b.author||'').toLowerCase()}
+try{Object.keys(localStorage).forEach(function(k){if(k.indexOf('olc:')===0){var v=JSON.parse(localStorage.getItem(k)||'null');if(v&&v.id)AUTO[k]=v.id}})}catch(e){}
+function findCovers(){
+  if(!window.fetch)return;
+  var todo=books.filter(function(b){if(b.cover||b.coverId||b.isbn)return false;var k=autoKey(b);if(AUTO[k])return false;
+    try{var v=JSON.parse(localStorage.getItem(k)||'null');if(v&&!v.id&&Date.now()-v.t<14*864e5)return false}catch(e){}return true});
+  var i=0,found=false,rt=null;
+  function next(){
+    if(i>=todo.length){if(found)render();return}
+    var b=todo[i++],k=autoKey(b),author=String(b.author||'').split(/\s*(?:&|\band\b|,)\s*/)[0];
+    var url='https://openlibrary.org/search.json?title='+encodeURIComponent(b.title)+(author?'&author='+encodeURIComponent(author):'')+'&fields=cover_i&limit=3';
+    fetch(url).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+      var d=(j.docs||[]).filter(function(x){return x.cover_i>0})[0],id=d?d.cover_i:0;
+      try{localStorage.setItem(k,JSON.stringify({id:id,t:Date.now()}))}catch(e){}
+      if(id){AUTO[k]=id;found=true;clearTimeout(rt);rt=setTimeout(function(){found=false;render()},600)}
+    }).catch(function(){}).then(function(){setTimeout(next,350)});
+  }
+  next();
 }
 /* Open Library covers fade in over the designed cover once they load; if the cover is missing or blocked, the designed cover stays. */
 function wireCovers(el){if(!el)return;el.querySelectorAll('img.ol').forEach(function(i){
@@ -315,7 +336,7 @@ function save(msg){
     else toast('Could not save just now. Try again in a minute.')});
 }
 
-render();
+render();setTimeout(findCovers,800);
 var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(render,120)});
 (async function(){try{
   if(!window.claude||!window.claude.use)return;

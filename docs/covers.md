@@ -26,6 +26,16 @@ Find a cover ID at `https://openlibrary.org/isbn/{ISBN}.json` (the `covers` arra
 2. Otherwise, if it has a `coverId` (or failing that an `isbn`), the page draws the designed cover and lays the Open Library image on top, fading it in only once it loads.
 3. If the image fails (missing cover, network blocked), it is removed and the designed cover stays.
 
+## Books with no ISBN
+
+For a book with no photo, `coverId` or `isbn`, the visitor's browser searches Open Library once:
+
+```
+https://openlibrary.org/search.json?title={title}&author={author}&fields=cover_i&limit=3
+```
+
+The first result with a cover supplies the cover ID. Each answer is remembered in that browser (misses are retried after 14 days), and lookups run one at a time to stay well under the rate limit. If a book shows the wrong cover, add its ISBN or `coverId` to the book record and that takes priority.
+
 ## Limits
 
 - **Rate limit:** 100 requests per IP per 5 minutes. The browser caches covers, so each one is fetched once.
