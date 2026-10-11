@@ -104,6 +104,14 @@
       "isBanned": true,
       "list": "Want to read",
       "coverId": 15172531
+    },
+    {
+      "title": "Fahrenheit 451",
+      "author": "Ray Bradbury",
+      "isbn": "9781451673319",
+      "isBanned": true,
+      "list": "Currently reading",
+      "coverId": 12460599
     }
   ]
 }
