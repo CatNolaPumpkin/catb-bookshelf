@@ -46,4 +46,4 @@ Each book in `index.html` (inside `<script id="library-data">`) looks like this:
  "line": "", "cover": "", "isbn": "9780451524935", "isBanned": true}
 ```
 
-`cover` holds an uploaded photo. When it's empty and `isbn` is set, the page loads the Open Library cover; when there's neither, it draws a designed cover.
+`cover` holds an uploaded photo. When it's empty, the page loads the Open Library cover by `coverId` (falling back to `isbn`); when there's neither, it draws a designed cover.

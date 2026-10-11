@@ -10,10 +10,20 @@ https://covers.openlibrary.org/b/isbn/{ISBN}-{SIZE}.jpg?default=false
 - `ISBN`: 10 or 13 digits, no hyphens.
 - `?default=false` returns a 404 when no cover exists, so the page keeps its designed cover instead of showing a blank image.
 
+## Cover IDs (preferred)
+
+The ISBN lookup can be slow or fail, so each book also stores Open Library's `coverId`, loaded directly:
+
+```
+https://covers.openlibrary.org/b/id/{coverId}-M.jpg
+```
+
+Find a cover ID at `https://openlibrary.org/isbn/{ISBN}.json` (the `covers` array).
+
 ## How the page uses it
 
 1. A book with an uploaded photo (`cover`) always shows that photo.
-2. Otherwise, if it has an `isbn`, the page draws the designed cover and lays the Open Library image on top, fading it in only once it loads.
+2. Otherwise, if it has a `coverId` (or failing that an `isbn`), the page draws the designed cover and lays the Open Library image on top, fading it in only once it loads.
 3. If the image fails (missing cover, network blocked), it is removed and the designed cover stays.
 
 ## Limits
