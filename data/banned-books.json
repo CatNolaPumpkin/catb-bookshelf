@@ -1,0 +1,96 @@
+{
+  "source": "\"I Love Banned Books\", Heartware by CatB, Oct 9 2026",
+  "books": [
+    {
+      "title": "I Know Why the Caged Bird Sings",
+      "author": "Maya Angelou",
+      "isbn": "9780345514400",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "The Bluest Eye",
+      "author": "Toni Morrison",
+      "isbn": "9780307278449",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "Beloved",
+      "author": "Toni Morrison",
+      "isbn": "9781400033416",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "The Color Purple",
+      "author": "Alice Walker",
+      "isbn": "9780156028356",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "The Autobiography of Malcolm X",
+      "author": "Malcolm X",
+      "isbn": "9780345350688",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "The Kite Runner",
+      "author": "Khaled Hosseini",
+      "isbn": "9781594631931",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "isbn": "9780060935467",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "The Handmaid's Tale",
+      "author": "Margaret Atwood",
+      "isbn": "9780385490818",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "1984",
+      "author": "George Orwell",
+      "isbn": "9780451524935",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "The Diary of a Young Girl",
+      "author": "Anne Frank",
+      "isbn": "9780553296983",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "Of Mice and Men",
+      "author": "John Steinbeck",
+      "isbn": "9780140177398",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "The Adventures of Huckleberry Finn",
+      "author": "Mark Twain",
+      "isbn": "9780486280615",
+      "isBanned": true,
+      "list": "Want to read"
+    },
+    {
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "isbn": "9780316769488",
+      "isBanned": true,
+      "list": "Want to read"
+    }
+  ]
+}
