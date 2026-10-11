@@ -26,6 +26,10 @@ Find a cover ID at `https://openlibrary.org/isbn/{ISBN}.json` (the `covers` arra
 2. Otherwise, if it has a `coverId` (or failing that an `isbn`), the page draws the designed cover and lays the Open Library image on top, fading it in only once it loads.
 3. If the image fails (missing cover, network blocked), it is removed and the designed cover stays.
 
+## Books with no cover ID
+
+Order of sources: uploaded photo, then `coverId`, then a remembered lookup result, then the ISBN cover. Lookups: books with an ISBN ask Google Books by ISBN; books without one search Open Library by title and author, then Google Books.
+
 ## Books with no ISBN
 
 For a book with no photo, `coverId` or `isbn`, the visitor's browser searches Open Library once:
